@@ -1,0 +1,1315 @@
+# Master Course Outline
+
+Full, hierarchical index of every lecture, chapter, and topic in the course.
+
+---
+
+## L01 — Introduction to DevOps, SRE & Platform Engineering
+
+- **C01 — Understanding DevOps**
+  - T01 What DevOps Actually Is (Beyond the Buzzword)
+  - T02 History and Evolution (Agile → DevOps → SRE → Platform Engineering)
+  - T03 DevOps vs Traditional IT Operations
+  - T04 DevOps vs Agile vs SRE vs Platform Engineering
+  - T05 The Business Case for DevOps (DORA Metrics)
+- **C02 — DevOps Culture & Principles**
+  - T01 The CALMS Framework
+  - T02 The Three Ways (Flow, Feedback, Continuous Learning)
+  - T03 Breaking Down Silos (Dev vs Ops Wars)
+  - T04 Blameless Culture & Psychological Safety
+  - T05 "You Build It, You Run It"
+- **C03 — The DevOps Lifecycle**
+  - T01 Plan, Code, Build, Test
+  - T02 Release, Deploy, Operate, Monitor
+  - T03 Feedback Loops at Every Stage
+  - T04 The Infinity Loop Diagram (Deconstructed)
+- **C04 — Roles, Titles & Career Paths**
+  - T01 The DevOps Engineer Role
+  - T02 SRE vs DevOps Engineer
+  - T03 Platform Engineer & Internal Developer Platforms
+  - T04 Cloud Engineer / Infrastructure Engineer
+  - T05 Career Progression: IC1 → Staff → Principal → Distinguished
+- **C05 — DORA & SPACE Metrics**
+  - T01 Deployment Frequency
+  - T02 Lead Time for Changes
+  - T03 Change Failure Rate
+  - T04 Mean Time to Recovery (MTTR)
+  - T05 SPACE Framework for Developer Productivity
+- **C06 — Common Misconceptions & Anti-Patterns**
+  - T01 "DevOps is a Tool / Team / Title"
+  - T02 The Anti-Pattern of a "DevOps Team"
+  - T03 NoOps Myth
+  - T04 Cargo Culting Practices
+
+---
+
+## L02 — Linux & Operating System Internals
+
+- **C01 — Linux Fundamentals**
+  - T01 Distributions and Package Managers (apt, yum, dnf, apk, pacman)
+  - T02 Filesystem Hierarchy Standard (FHS)
+  - T03 File Permissions, ACLs, Capabilities
+  - T04 Essential Commands (Truly Mastering ls, find, xargs, grep)
+- **C02 — Process Management**
+  - T01 Process States, PID, PPID, Process Tree
+  - T02 fork(), exec(), wait() System Calls
+  - T03 Signals and Signal Handling
+  - T04 Zombie, Orphan, Daemon Processes
+  - T05 systemd Deep Dive (Units, Targets, Journal)
+- **C03 — Memory Management**
+  - T01 Virtual Memory, Paging, Page Tables
+  - T02 Swap, Swappiness, OOM Killer
+  - T03 Shared Memory, mmap, /dev/shm
+  - T04 Slab Allocator & Buddy System
+  - T05 Reading /proc/meminfo Like a Pro
+- **C04 — CPU & Scheduling**
+  - T01 CFS (Completely Fair Scheduler) Internals
+  - T02 Nice, Priority, Real-Time Classes
+  - T03 CPU Affinity (taskset, cpusets)
+  - T04 Context Switching Costs
+- **C05 — Filesystems & Storage**
+  - T01 Block Devices, Partitions, Mounting
+  - T02 LVM (Physical Volumes, Volume Groups, Logical Volumes)
+  - T03 ext4 vs XFS vs Btrfs vs ZFS
+  - T04 RAID Levels & mdadm
+  - T05 NFS, SMB, Network Filesystems
+- **C06 — Linux Networking Stack**
+  - T01 Network Interfaces, ifconfig vs ip
+  - T02 Routing Tables and Policy Routing
+  - T03 iptables, nftables, conntrack
+  - T04 Network Namespaces (The Foundation of Containers)
+  - T05 Bridges, VLANs, Bonding
+- **C07 — Cgroups & Namespaces (Container Foundations)**
+  - T01 The 7 Namespaces (pid, net, ipc, mnt, uts, user, cgroup)
+  - T02 Cgroups v1 vs v2
+  - T03 Resource Limits (cpu, memory, blkio, pids)
+  - T04 Building a Container from Scratch with unshare
+- **C08 — Performance & Observability**
+  - T01 USE Method (Utilization, Saturation, Errors)
+  - T02 RED Method (Rate, Errors, Duration)
+  - T03 perf, strace, ltrace, bpftrace
+  - T04 eBPF: The New Frontier
+  - T05 Performance Tuning Knobs (sysctl, ulimits, IO schedulers)
+- **C09 — Linux Security**
+  - T01 Users, Groups, sudo, PAM
+  - T02 SELinux & AppArmor (Mandatory Access Control)
+  - T03 SSH Hardening (Keys, Bastion, Certificates)
+  - T04 auditd, Logging, and File Integrity
+  - T05 Common Hardening Checklist (CIS Benchmark)
+- **C10 — Boot Process & Kernel**
+  - T01 BIOS/UEFI → Bootloader → Kernel → initramfs → systemd
+  - T02 Kernel Modules
+  - T03 Reading dmesg and journalctl
+  - T04 Kernel Upgrades, Live Patching
+
+---
+
+## L03 — Networking Deep Dive (OSI to BGP)
+
+- **C01 — Network Models**
+  - T01 OSI Model (All 7 Layers, In Detail)
+  - T02 TCP/IP Model
+  - T03 Packet Encapsulation
+- **C02 — IP, TCP, UDP**
+  - T01 IPv4 Addressing, Subnetting, CIDR
+  - T02 IPv6 (Why It Matters Now)
+  - T03 TCP Three-Way Handshake & Termination
+  - T04 TCP Flow Control, Congestion Control, Slow Start
+  - T05 UDP and When to Use It
+  - T06 QUIC (and HTTP/3)
+- **C03 — DNS Deep Dive**
+  - T01 DNS Resolution Flow (Recursive vs Iterative)
+  - T02 Record Types (A, AAAA, CNAME, MX, TXT, SRV, NS, SOA)
+  - T03 DNS Caching, TTLs, and Why TTLs Lie
+  - T04 DNSSEC
+  - T05 DNS as a Load Balancer (Route53, GeoDNS)
+- **C04 — HTTP, HTTPS, HTTP/2, HTTP/3**
+  - T01 HTTP Methods, Status Codes, Headers
+  - T02 HTTPS / TLS Handshake (Step by Step)
+  - T03 HTTP/2 Multiplexing & Server Push
+  - T04 HTTP/3 Over QUIC
+  - T05 Cookies, CORS, Same-Origin Policy
+- **C05 — TLS / SSL Deep Dive**
+  - T01 Symmetric vs Asymmetric Cryptography
+  - T02 Certificates, CAs, Chains of Trust
+  - T03 mTLS (Mutual TLS)
+  - T04 Cipher Suites, Forward Secrecy
+  - T05 Certificate Rotation & ACME (Let's Encrypt)
+- **C06 — Network Troubleshooting**
+  - T01 ping, traceroute, mtr
+  - T02 tcpdump & Wireshark
+  - T03 netstat, ss, lsof
+  - T04 curl and HTTP Debugging
+  - T05 Reading Real Packet Captures
+- **C07 — Cloud & Data Center Networking**
+  - T01 VPC, Subnets, Route Tables, IGW, NAT
+  - T02 VPC Peering, Transit Gateway, PrivateLink
+  - T03 Direct Connect, VPN
+  - T04 BGP and Anycast
+  - T05 SD-WAN
+- **C08 — Edge & CDN Networking**
+  - T01 CDN Topology (PoPs, Origin)
+  - T02 Anycast IP
+  - T03 Edge Computing
+  - T04 DDoS Protection at the Edge
+
+---
+
+## L04 — Shell, Bash & Scripting for Automation
+
+- **C01 — Bash Fundamentals**
+  - T01 Shells: bash, zsh, fish, sh, dash
+  - T02 Variables, Quoting, Expansion
+  - T03 Conditionals, Loops, Functions
+  - T04 Exit Codes, set -euo pipefail
+- **C02 — Text Processing**
+  - T01 grep, egrep, fgrep, ripgrep
+  - T02 sed (Substitution, In-Place Editing)
+  - T03 awk (Programming with awk)
+  - T04 cut, sort, uniq, tr, paste, join
+  - T05 jq for JSON, yq for YAML
+- **C03 — Advanced Bash**
+  - T01 Arrays, Associative Arrays
+  - T02 Process Substitution, Heredocs
+  - T03 Trap & Signal Handling
+  - T04 Background Jobs, Job Control
+  - T05 Parallel Execution (xargs -P, GNU parallel)
+- **C04 — Production-Grade Scripts**
+  - T01 Argument Parsing (getopts, getopt)
+  - T02 Logging, Stderr vs Stdout, Tee
+  - T03 Error Handling Patterns
+  - T04 Dry-Run, Idempotency, Atomic Operations
+  - T05 ShellCheck and Style Guides
+- **C05 — Beyond Bash**
+  - T01 When to Move to Python/Go
+  - T02 Makefile for Automation
+  - T03 just, task, mage Alternatives
+
+---
+
+## L05 — Version Control & Git Internals
+
+- **C01 — Git Fundamentals**
+  - T01 Working Directory, Staging, Repository
+  - T02 Commits, Trees, Blobs (The Object Model)
+  - T03 Refs, HEAD, Branches, Tags
+  - T04 Remotes, fetch/pull/push
+- **C02 — Git Internals**
+  - T01 The .git Directory Tour
+  - T02 Pack Files and Garbage Collection
+  - T03 The Reflog (Your Safety Net)
+  - T04 Plumbing vs Porcelain Commands
+- **C03 — Branching & Merging**
+  - T01 Fast-Forward vs Three-Way Merge
+  - T02 Rebase vs Merge (The Real Tradeoffs)
+  - T03 Cherry-Pick, Revert, Reset
+  - T04 Resolving Conflicts at Scale
+- **C04 — Workflows**
+  - T01 GitFlow
+  - T02 GitHub Flow
+  - T03 Trunk-Based Development
+  - T04 Release Branches & Hotfixes
+- **C05 — Advanced Git**
+  - T01 Interactive Rebase, Squash, Fixup
+  - T02 bisect for Finding Bugs
+  - T03 Submodules vs Subtrees
+  - T04 Git LFS for Large Files
+  - T05 Worktrees
+- **C06 — Git at Scale**
+  - T01 Monorepo vs Polyrepo
+  - T02 Tools (Bazel, Nx, Turborepo, Pants)
+  - T03 Code Owners & Branch Protection
+  - T04 Commit Signing (GPG, Sigstore)
+- **C07 — Git Hooks & Automation**
+  - T01 Client-Side Hooks (pre-commit, commit-msg, pre-push)
+  - T02 Server-Side Hooks
+  - T03 pre-commit Framework
+  - T04 Conventional Commits
+
+---
+
+## L06 — Programming for DevOps (Python & Go)
+
+- **C01 — Why DevOps Engineers Must Code**
+  - T01 Tools, Operators, Glue Code
+  - T02 When Bash Isn't Enough
+- **C02 — Python for DevOps**
+  - T01 Idiomatic Python (PEP 8, Typing, Black, Ruff)
+  - T02 Virtual Environments, Poetry, uv
+  - T03 Standard Library Highlights (subprocess, pathlib, argparse)
+  - T04 requests, httpx for HTTP
+  - T05 Boto3 for AWS, the Kubernetes Python Client
+  - T06 Writing CLIs with Click / Typer
+  - T07 Testing with pytest
+- **C03 — Go for DevOps**
+  - T01 Why Go Dominates Cloud-Native Tooling
+  - T02 Modules, Packages, Workspaces
+  - T03 Concurrency (Goroutines, Channels, sync)
+  - T04 Standard Library (net/http, context, os/exec)
+  - T05 Writing CLIs with Cobra & Viper
+  - T06 client-go for Kubernetes
+  - T07 controller-runtime for Operators
+- **C04 — API Design**
+  - T01 REST Design Principles
+  - T02 OpenAPI / Swagger
+  - T03 gRPC and Protocol Buffers
+  - T04 GraphQL Basics
+- **C05 — Building Production Tools**
+  - T01 Configuration (Env Vars, Files, Secrets)
+  - T02 Observability in Your Own Tools
+  - T03 Distribution (Homebrew, apt, Docker)
+  - T04 Releasing with GoReleaser
+
+---
+
+## L07 — Cloud Computing Fundamentals
+
+- **C01 — Cloud Concepts**
+  - T01 What Is "The Cloud" (Really)
+  - T02 IaaS vs PaaS vs SaaS vs FaaS
+  - T03 Public, Private, Hybrid, Multi-Cloud, Edge
+  - T04 Regions, Availability Zones, Edge Locations
+- **C02 — Cloud Economics**
+  - T01 CapEx vs OpEx
+  - T02 Pricing Models (On-Demand, Reserved, Spot, Savings Plans)
+  - T03 Total Cost of Ownership
+- **C03 — Shared Responsibility Model**
+  - T01 Customer vs Provider Responsibilities
+  - T02 Per-Service Variations
+- **C04 — Cloud Service Models — Compute Family**
+  - T01 VMs (EC2, Compute Engine, Azure VMs)
+  - T02 Containers (ECS, EKS, GKE, AKS, Fargate, Cloud Run)
+  - T03 Serverless (Lambda, Cloud Functions, Azure Functions)
+- **C05 — Cloud Service Models — Storage Family**
+  - T01 Object Storage (S3, GCS, Blob Storage)
+  - T02 Block Storage (EBS, Persistent Disk, Managed Disks)
+  - T03 File Storage (EFS, Filestore, Azure Files)
+- **C06 — Cloud Service Models — Database Family**
+  - T01 Managed Relational (RDS, Cloud SQL, Azure SQL)
+  - T02 Managed NoSQL (DynamoDB, Firestore, Cosmos DB)
+  - T03 Managed Caches (ElastiCache, Memorystore)
+  - T04 Data Warehouses (Redshift, BigQuery, Synapse)
+- **C07 — Cloud Networking Primitives**
+  - T01 VPC, Subnets, Route Tables (Across Clouds)
+  - T02 Load Balancers (L4, L7)
+  - T03 DNS, CDN
+  - T04 Cross-Region Networking
+- **C08 — Identity & Access Management**
+  - T01 The IAM Mental Model (Principal, Action, Resource, Condition)
+  - T02 Roles vs Users vs Service Accounts
+  - T03 Federated Identity (SAML, OIDC)
+- **C09 — Choosing a Cloud**
+  - T01 AWS vs Azure vs GCP (Honest Comparison)
+  - T02 Vendor Lock-In: Reality vs Myth
+  - T03 Multi-Cloud Strategy Tradeoffs
+
+---
+
+## L08 — AWS Deep Dive
+
+- **C01 — Account Setup & Organizations**
+  - T01 Root Account, MFA, Billing Alarms
+  - T02 AWS Organizations, SCPs, OUs
+  - T03 Control Tower & Landing Zones
+- **C02 — IAM Mastery**
+  - T01 Users, Groups, Roles, Policies
+  - T02 Trust Policies vs Permission Policies
+  - T03 Resource-Based Policies
+  - T04 Conditions, IAM Access Analyzer
+  - T05 IAM Roles for Service Accounts (IRSA)
+  - T06 Permission Boundaries & SCPs
+  - T07 Assume Role, STS, External ID
+- **C03 — EC2 & Compute**
+  - T01 Instance Types & Families
+  - T02 AMIs, Launch Templates, Auto Scaling Groups
+  - T03 Placement Groups (Cluster, Spread, Partition)
+  - T04 EBS Types (gp3, io2, st1, sc1) and Performance
+  - T05 Spot, Savings Plans, Reserved Instances
+  - T06 Nitro System Architecture
+  - T07 EC2 Metadata Service (IMDSv1 vs IMDSv2)
+- **C04 — VPC & Networking**
+  - T01 VPC Architecture (CIDR, Subnets, AZs)
+  - T02 Internet Gateway, NAT Gateway, NAT Instance
+  - T03 Route Tables, Network ACLs, Security Groups
+  - T04 VPC Peering vs Transit Gateway
+  - T05 PrivateLink & VPC Endpoints (Interface, Gateway)
+  - T06 Direct Connect & Site-to-Site VPN
+  - T07 Egress Controls & Centralized Egress
+- **C05 — S3 Deep Dive**
+  - T01 Buckets, Objects, Keys, Prefixes
+  - T02 Storage Classes & Lifecycle Policies
+  - T03 Versioning, Object Lock, MFA Delete
+  - T04 S3 Performance & Request Patterns
+  - T05 S3 Security (Block Public Access, Bucket Policies, KMS)
+  - T06 Multipart Upload, Transfer Acceleration
+  - T07 S3 Event Notifications & Triggers
+- **C06 — Databases on AWS**
+  - T01 RDS (MySQL, PostgreSQL, Oracle, SQL Server)
+  - T02 Aurora Architecture (Storage Layer, Global DB)
+  - T03 DynamoDB Deep Dive (Partition Keys, GSI, LSI)
+  - T04 DynamoDB Streams & Single-Table Design
+  - T05 ElastiCache (Redis & Memcached)
+  - T06 Redshift, Athena, Glue
+- **C07 — Serverless on AWS**
+  - T01 Lambda Architecture & Execution Model
+  - T02 Concurrency, Reserved & Provisioned Concurrency
+  - T03 Lambda Layers, Extensions
+  - T04 Cold Starts & Mitigations
+  - T05 Step Functions (Standard vs Express)
+  - T06 EventBridge, SQS, SNS
+  - T07 API Gateway (REST, HTTP, WebSocket)
+- **C08 — Container Services**
+  - T01 ECS (EC2 vs Fargate)
+  - T02 EKS Architecture & Control Plane
+  - T03 Fargate Pricing & Limits
+  - T04 ECR (Image Scanning, Replication)
+  - T05 App Mesh
+- **C09 — Edge Services**
+  - T01 CloudFront (Distributions, Behaviors, Functions, Lambda@Edge)
+  - T02 Route 53 (Routing Policies)
+  - T03 Global Accelerator
+  - T04 WAF & Shield
+- **C10 — Messaging & Streaming**
+  - T01 SQS (Standard, FIFO, DLQ)
+  - T02 SNS & Fanout Patterns
+  - T03 EventBridge (Buses, Rules, Schemas)
+  - T04 Kinesis Data Streams, Firehose, Analytics
+  - T05 MSK (Managed Kafka)
+- **C11 — Observability on AWS**
+  - T01 CloudWatch Metrics, Logs, Alarms
+  - T02 CloudWatch Insights & Contributor Insights
+  - T03 X-Ray Tracing
+  - T04 Managed Prometheus & Grafana
+  - T05 CloudTrail for Audit
+- **C12 — Infrastructure as Code on AWS**
+  - T01 CloudFormation (Templates, Stacks, StackSets)
+  - T02 CDK (TypeScript, Python)
+  - T03 SAM for Serverless
+- **C13 — Security & Compliance**
+  - T01 KMS (Customer-Managed Keys, Envelope Encryption)
+  - T02 Secrets Manager vs Parameter Store
+  - T03 GuardDuty, Security Hub, Inspector, Macie
+  - T04 Config & Conformance Packs
+  - T05 Detective, Audit Manager
+- **C14 — Well-Architected Framework**
+  - T01 Six Pillars (Operational Excellence, Security, Reliability, Performance, Cost, Sustainability)
+  - T02 Running a WAR (Well-Architected Review)
+
+---
+
+## L09 — Azure & GCP Comparative Mastery
+
+- **C01 — Azure Core**
+  - T01 Resource Groups, Subscriptions, Management Groups
+  - T02 Entra ID (formerly Azure AD)
+  - T03 Compute (VMs, VMSS, AKS, App Service, Functions)
+  - T04 Storage (Blob, Files, Disks)
+  - T05 Networking (VNets, NSGs, Application Gateway, Front Door)
+  - T06 Bicep & ARM Templates
+- **C02 — GCP Core**
+  - T01 Projects, Folders, Organizations
+  - T02 IAM (Roles, Service Accounts, Workload Identity)
+  - T03 Compute (GCE, GKE, Cloud Run, Cloud Functions)
+  - T04 Storage (GCS, Persistent Disk, Filestore)
+  - T05 Networking (VPC, Cloud Load Balancing, Cloud Armor)
+  - T06 Deployment Manager, Config Connector
+- **C03 — Multi-Cloud Strategy**
+  - T01 Choosing Workload Placement
+  - T02 Cross-Cloud Connectivity
+  - T03 Cross-Cloud IAM Federation
+  - T04 Data Gravity & Egress Cost Traps
+- **C04 — Service-by-Service Comparison**
+  - T01 Compute Equivalents
+  - T02 Storage Equivalents
+  - T03 Database Equivalents
+  - T04 Networking Equivalents
+
+---
+
+## L10 — Infrastructure as Code (Terraform, Pulumi, CDK)
+
+- **C01 — IaC Fundamentals**
+  - T01 Imperative vs Declarative
+  - T02 Mutable vs Immutable Infrastructure
+  - T03 GitOps for Infrastructure
+- **C02 — Terraform Fundamentals**
+  - T01 HCL Syntax
+  - T02 Providers, Resources, Data Sources
+  - T03 Variables, Locals, Outputs
+  - T04 Lifecycle Meta-Arguments
+- **C03 — Terraform State**
+  - T01 What State Is & Why It Matters
+  - T02 Backends (S3 + DynamoDB, Terraform Cloud, GCS, Azure Storage)
+  - T03 State Locking & Concurrency
+  - T04 terraform state Commands (mv, rm, import, replace)
+  - T05 State Drift Detection
+- **C04 — Terraform Modules**
+  - T01 Module Anatomy
+  - T02 Versioning & the Registry
+  - T03 Composition Patterns
+  - T04 Module Testing (Terratest, Terraform Test)
+- **C05 — Terraform at Scale**
+  - T01 Workspaces vs Directories
+  - T02 Multi-Account / Multi-Region Patterns
+  - T03 Terragrunt for DRY Infrastructure
+  - T04 Atlantis for PR-Driven Workflows
+- **C06 — Writing Custom Providers**
+  - T01 Provider Anatomy (Go)
+  - T02 Plugin Framework vs SDK v2
+- **C07 — Pulumi & CDK**
+  - T01 Pulumi (Real Programming Languages)
+  - T02 AWS CDK (TypeScript, Python)
+  - T03 CDK for Terraform (CDKTF)
+- **C08 — Best Practices**
+  - T01 Repository Structure
+  - T02 Secrets in IaC (Vault, KMS, SOPS)
+  - T03 Policy as Code (OPA, Sentinel, Checkov)
+  - T04 Cost Estimation (Infracost)
+- **C09 — Disasters & Recovery**
+  - T01 Importing Brownfield Infrastructure
+  - T02 Recovering Lost State
+  - T03 The "Big Refactor" Without Downtime
+
+---
+
+## L11 — Configuration Management
+
+- **C01 — When Do You Need Config Management**
+  - T01 Mutable vs Immutable Patterns
+  - T02 Pull vs Push Models
+- **C02 — Ansible Fundamentals**
+  - T01 Inventory, Variables, Facts
+  - T02 Playbooks, Plays, Tasks
+  - T03 Roles & Collections
+  - T04 Templates (Jinja2)
+  - T05 Handlers & Notifications
+- **C03 — Advanced Ansible**
+  - T01 Dynamic Inventory
+  - T02 AWX / Ansible Automation Platform
+  - T03 Custom Modules & Plugins
+  - T04 Idempotency Patterns
+- **C04 — Puppet**
+  - T01 Architecture (Master/Agent)
+  - T02 Manifests, Modules, Hiera
+  - T03 Catalog Compilation
+- **C05 — Chef**
+  - T01 Cookbooks, Recipes, Resources
+  - T02 Chef Infra & Workstation
+- **C06 — SaltStack**
+  - T01 Master/Minion, Salt SSH
+  - T02 Pillars, Grains, States
+- **C07 — Comparison & Selection**
+  - T01 Ansible vs Puppet vs Chef vs Salt
+  - T02 When to Replace with IaC + Containers
+
+---
+
+## L12 — Docker & Container Internals
+
+- **C01 — Container First Principles**
+  - T01 What a Container Actually Is
+  - T02 Namespaces (Recap from L02)
+  - T03 Cgroups (Recap from L02)
+  - T04 Union Filesystems (overlayfs)
+  - T05 Capabilities & Seccomp
+- **C02 — Docker Architecture**
+  - T01 dockerd, containerd, runc
+  - T02 OCI Image & Runtime Spec
+  - T03 Docker vs Podman vs nerdctl
+- **C03 — Dockerfile Mastery**
+  - T01 Base Images (distroless, alpine, scratch, ubi)
+  - T02 Layer Caching Strategy
+  - T03 Multi-Stage Builds
+  - T04 BuildKit & Build Secrets
+  - T05 ARG vs ENV
+  - T06 HEALTHCHECK, USER, ENTRYPOINT vs CMD
+- **C04 — Image Optimization**
+  - T01 Reducing Image Size
+  - T02 Reproducible Builds
+  - T03 SBOMs & Provenance
+- **C05 — Container Networking**
+  - T01 Bridge, Host, None, Overlay Networks
+  - T02 Port Mapping vs Host Networking
+  - T03 DNS Inside Docker
+- **C06 — Storage in Containers**
+  - T01 Volumes vs Bind Mounts vs tmpfs
+  - T02 Volume Drivers
+- **C07 — Docker Compose**
+  - T01 docker-compose.yml Anatomy
+  - T02 Networks, Volumes, Profiles
+  - T03 Compose for Local Dev
+- **C08 — Container Security**
+  - T01 Rootless Containers
+  - T02 Image Scanning (Trivy, Grype, Snyk)
+  - T03 Signed Images (Cosign, Notary v2)
+  - T04 Runtime Security (Falco, Tetragon)
+- **C09 — Registries**
+  - T01 Docker Hub, ECR, GCR, Artifact Registry, ACR, Harbor
+  - T02 Image Replication
+  - T03 Pull-Through Caches
+- **C10 — Alternative Runtimes**
+  - T01 Podman (Daemonless)
+  - T02 Buildah for Image Building
+  - T03 Kata Containers, gVisor (Sandboxed)
+  - T04 Firecracker microVMs
+
+---
+
+## L13 — Kubernetes (Beginner to Internals)
+
+- **C01 — Kubernetes Architecture**
+  - T01 The Control Plane (API Server, etcd, Scheduler, Controller Manager, Cloud Controller Manager)
+  - T02 The Data Plane (kubelet, kube-proxy, container runtime)
+  - T03 The Pod Lifecycle (End-to-End)
+  - T04 The Scheduler Internals
+  - T05 etcd Deep Dive
+- **C02 — Core Workload Resources**
+  - T01 Pods (The Atomic Unit)
+  - T02 ReplicaSets & Deployments
+  - T03 StatefulSets
+  - T04 DaemonSets
+  - T05 Jobs & CronJobs
+- **C03 — Configuration**
+  - T01 ConfigMaps
+  - T02 Secrets (And Why They're Not Really Secret)
+  - T03 Downward API
+  - T04 Environment Variables vs Files
+- **C04 — Networking in Kubernetes**
+  - T01 Pod-to-Pod, Pod-to-Service, External-to-Service
+  - T02 CNI Plugins (Calico, Cilium, Flannel, AWS VPC CNI)
+  - T03 kube-proxy Modes (iptables vs IPVS vs eBPF)
+  - T04 Services (ClusterIP, NodePort, LoadBalancer, Headless)
+  - T05 Ingress Controllers (Nginx, Traefik, HAProxy, AWS ALB)
+  - T06 Gateway API (The Future of Ingress)
+  - T07 NetworkPolicies
+- **C05 — Storage in Kubernetes**
+  - T01 Volumes, PersistentVolumes, PersistentVolumeClaims
+  - T02 StorageClasses & Dynamic Provisioning
+  - T03 CSI (Container Storage Interface)
+  - T04 Stateful Workloads & Data Gravity
+  - T05 Snapshots
+- **C06 — Security**
+  - T01 RBAC Deep Dive
+  - T02 Service Accounts & Token Volumes
+  - T03 Pod Security Standards (replaces PSP)
+  - T04 NetworkPolicies (Defense in Depth)
+  - T05 Secrets Encryption at Rest
+  - T06 OPA Gatekeeper & Kyverno
+  - T07 Image Pull Secrets, Image Policy
+- **C07 — Scheduling & Resources**
+  - T01 Requests & Limits
+  - T02 QoS Classes (Guaranteed, Burstable, BestEffort)
+  - T03 Node Selectors, Affinity, Anti-Affinity
+  - T04 Taints & Tolerations
+  - T05 Topology Spread Constraints
+  - T06 Priority & Preemption
+  - T07 Custom Schedulers
+- **C08 — Autoscaling**
+  - T01 Horizontal Pod Autoscaler (HPA)
+  - T02 Vertical Pod Autoscaler (VPA)
+  - T03 Cluster Autoscaler
+  - T04 Karpenter (Next-Gen Node Provisioning)
+  - T05 KEDA (Event-Driven Autoscaling)
+- **C09 — Application Patterns**
+  - T01 Init Containers
+  - T02 Sidecars (and the new Sidecar API)
+  - T03 Ambassadors & Adapters
+  - T04 Graceful Shutdown & PreStop Hooks
+  - T05 Health Probes (Liveness, Readiness, Startup)
+- **C10 — Operators & CRDs**
+  - T01 Custom Resource Definitions
+  - T02 Controller Pattern
+  - T03 Operator SDK (Go, Ansible, Helm)
+  - T04 kubebuilder
+  - T05 Writing Your First Operator
+- **C11 — Helm**
+  - T01 Charts, Templates, Values
+  - T02 Helm Repos & OCI Registries
+  - T03 Helm 3 Architecture (No Tiller)
+  - T04 Best Practices
+- **C12 — Kustomize**
+  - T01 Bases & Overlays
+  - T02 Patches (Strategic Merge, JSON Patch)
+  - T03 Generators
+- **C13 — GitOps**
+  - T01 ArgoCD Deep Dive
+  - T02 Flux v2
+  - T03 App-of-Apps Pattern
+  - T04 Sync Strategies, Hooks, Waves
+- **C14 — Observability for K8s**
+  - T01 Metrics Server
+  - T02 kube-state-metrics
+  - T03 Prometheus Operator
+  - T04 Container & Pod Metrics
+- **C15 — Logging in K8s**
+  - T01 Logging Architecture Patterns
+  - T02 Fluent Bit / Fluentd / Vector DaemonSets
+  - T03 Loki & ELK on K8s
+- **C16 — Troubleshooting K8s**
+  - T01 kubectl describe, logs, exec, debug
+  - T02 ImagePullBackOff, CrashLoopBackOff, OOMKilled
+  - T03 DNS Issues, Service Issues, Ingress Issues
+  - T04 etcd Recovery
+  - T05 Node Not Ready
+- **C17 — Multi-Cluster Management**
+  - T01 Cluster API
+  - T02 Karmada, Open Cluster Management
+  - T03 Multi-Cluster Service Mesh
+  - T04 Crossplane
+- **C18 — Cluster Provisioning**
+  - T01 kubeadm
+  - T02 kops, kubespray
+  - T03 EKS, GKE, AKS Lifecycle
+  - T04 Self-Managed vs Managed Tradeoffs
+- **C19 — Day 2 Operations**
+  - T01 Cluster Upgrades
+  - T02 etcd Backup & Restore
+  - T03 Certificate Rotation
+  - T04 Capacity Planning
+- **C20 — Production Kubernetes Checklist**
+  - T01 Cluster Hardening (CIS)
+  - T02 Disaster Recovery
+  - T03 Cost Controls
+  - T04 Compliance Posture
+
+---
+
+## L14 — Service Mesh
+
+- **C01 — Service Mesh Concepts**
+  - T01 What Problems Does a Mesh Solve
+  - T02 Data Plane vs Control Plane
+  - T03 Sidecar vs Sidecarless (Ambient Mesh)
+- **C02 — Istio**
+  - T01 Architecture (istiod, Envoy)
+  - T02 Traffic Management (VirtualService, DestinationRule, Gateway)
+  - T03 Security (mTLS, AuthorizationPolicy)
+  - T04 Observability
+  - T05 Ambient Mode
+- **C03 — Linkerd**
+  - T01 Architecture (linkerd2-proxy in Rust)
+  - T02 Simpler Tradeoffs vs Istio
+- **C04 — Consul Connect**
+  - T01 HashiCorp Stack Integration
+- **C05 — Envoy Standalone**
+  - T01 Filters, Clusters, Listeners
+  - T02 xDS APIs
+- **C06 — Choosing a Mesh**
+  - T01 When You Don't Need One
+  - T02 Cilium Service Mesh (eBPF)
+
+---
+
+## L15 — CI/CD Fundamentals & Pipeline Design
+
+- **C01 — CI/CD Concepts**
+  - T01 Continuous Integration
+  - T02 Continuous Delivery vs Continuous Deployment
+  - T03 The Deployment Pipeline (Humble & Farley)
+- **C02 — Pipeline Design**
+  - T01 Build → Test → Package → Deploy Phases
+  - T02 Pipeline as Code
+  - T03 Fan-Out / Fan-In Patterns
+  - T04 Parallelism & Caching
+- **C03 — Build Systems**
+  - T01 Make, Bazel, Buck2
+  - T02 Reproducible Builds
+  - T03 Hermetic Builds
+- **C04 — Testing in Pipelines**
+  - T01 Test Pyramid Revisited
+  - T02 Unit, Integration, E2E
+  - T03 Contract Testing (Pact)
+  - T04 Performance, Load, Soak Tests
+  - T05 Security Tests in CI
+  - T06 Flaky Test Management
+- **C05 — Artifact Management**
+  - T01 Artifact Repositories (Artifactory, Nexus, ECR, GAR)
+  - T02 Immutable Tags & Digests
+  - T03 SBOM Generation
+- **C06 — Deployment Strategies**
+  - T01 Recreate
+  - T02 Rolling Update
+  - T03 Blue/Green
+  - T04 Canary
+  - T05 Shadow Deployments
+  - T06 A/B Testing
+- **C07 — Progressive Delivery**
+  - T01 Feature Flags (LaunchDarkly, Unleash, OpenFeature)
+  - T02 Flagger, Argo Rollouts
+  - T03 Automated Rollback Triggers
+- **C08 — Release Engineering**
+  - T01 Semantic Versioning
+  - T02 Release Trains
+  - T03 Hotfix Workflows
+
+---
+
+## L16 — CI/CD Tools
+
+- **C01 — Jenkins**
+  - T01 Architecture (Controller / Agent)
+  - T02 Declarative vs Scripted Pipelines
+  - T03 Shared Libraries
+  - T04 Plugins Ecosystem (and Risks)
+  - T05 Configuration as Code (JCasC)
+- **C02 — GitHub Actions**
+  - T01 Workflows, Jobs, Steps
+  - T02 Runners (GitHub-Hosted vs Self-Hosted)
+  - T03 Reusable Workflows & Composite Actions
+  - T04 OIDC for Cloud Deploys
+  - T05 Secrets, Environments, Approvals
+- **C03 — GitLab CI**
+  - T01 .gitlab-ci.yml Anatomy
+  - T02 Runners
+  - T03 Auto DevOps
+  - T04 Multi-Project Pipelines
+- **C04 — CircleCI**
+  - T01 Orbs & Reusability
+- **C05 — Tekton**
+  - T01 Tasks, Pipelines, PipelineRuns
+  - T02 Cloud-Native CI on K8s
+- **C06 — ArgoCD (Recap from L13)**
+  - T01 Apps, ApplicationSets, Projects
+  - T02 Sync Hooks & Waves
+- **C07 — Flux v2**
+  - T01 Source, Kustomize, Helm Controllers
+- **C08 — Spinnaker**
+  - T01 Pipelines, Pipeline Templates
+  - T02 Multi-Cloud Deployments
+- **C09 — Drone & Other CI Tools**
+- **C10 — Self-Hosted Runners at Scale**
+  - T01 Karpenter-Backed Runners
+  - T02 ARC (Actions Runner Controller)
+  - T03 Security Considerations
+
+---
+
+## L17 — Monitoring & Observability
+
+- **C01 — Three Pillars (and the Critique)**
+  - T01 Metrics, Logs, Traces
+  - T02 Profiles as the 4th Pillar
+  - T03 Continuous Observability
+- **C02 — Prometheus**
+  - T01 Architecture (Server, Pushgateway, Alertmanager)
+  - T02 Service Discovery
+  - T03 Scrape Configs & Relabeling
+  - T04 Storage (TSDB, WAL)
+  - T05 Federation & Remote Write
+  - T06 Thanos, Cortex, Mimir for Long-Term Storage
+- **C03 — PromQL**
+  - T01 Instant vs Range Vectors
+  - T02 Aggregation & Functions
+  - T03 Recording Rules
+  - T04 Alerting Rules
+- **C04 — Grafana**
+  - T01 Datasources, Dashboards, Panels
+  - T02 Variables & Templating
+  - T03 Provisioning Dashboards as Code
+  - T04 Grafana Loki, Tempo, Mimir
+- **C05 — Alertmanager**
+  - T01 Routing Tree
+  - T02 Silences, Inhibitions
+  - T03 Receivers (PagerDuty, Slack, OpsGenie)
+  - T04 Alert Hygiene
+- **C06 — OpenTelemetry**
+  - T01 OTel Architecture (SDK, Collector, Exporters)
+  - T02 Semantic Conventions
+  - T03 Auto-Instrumentation
+  - T04 OTLP Protocol
+- **C07 — Commercial APM**
+  - T01 Datadog
+  - T02 New Relic
+  - T03 Dynatrace
+  - T04 Honeycomb
+  - T05 Splunk Observability
+- **C08 — SLI, SLO, Error Budgets**
+  - T01 Defining Good SLIs
+  - T02 SLO Math & Rolling Windows
+  - T03 Burn Rate Alerts
+  - T04 Error Budget Policies
+
+---
+
+## L18 — Logging & Distributed Tracing
+
+- **C01 — Logging Fundamentals**
+  - T01 Structured vs Unstructured Logs
+  - T02 Log Levels (and Why You're Wrong About Them)
+  - T03 Sampling Strategies
+- **C02 — ELK Stack**
+  - T01 Elasticsearch Architecture
+  - T02 Logstash & Beats
+  - T03 Kibana
+  - T04 Index Lifecycle Management
+- **C03 — Loki**
+  - T01 Architecture (Distributor, Ingester, Querier)
+  - T02 LogQL
+  - T03 Cost Tradeoffs vs ELK
+- **C04 — Collectors & Shippers**
+  - T01 Fluentd
+  - T02 Fluent Bit (Lightweight)
+  - T03 Vector (Rust-Based)
+  - T04 OpenTelemetry Collector for Logs
+- **C05 — Tracing Fundamentals**
+  - T01 Spans, Traces, Context Propagation
+  - T02 W3C Trace Context
+  - T03 Sampling (Head vs Tail)
+- **C06 — Tracing Tools**
+  - T01 Jaeger
+  - T02 Zipkin
+  - T03 Tempo
+  - T04 Honeycomb
+- **C07 — Profiling**
+  - T01 Pyroscope / Grafana Profiles
+  - T02 Continuous Profiling Patterns
+- **C08 — Correlating Logs, Metrics, Traces**
+  - T01 Exemplars
+  - T02 Trace IDs in Logs
+  - T03 Unified Query Experiences
+
+---
+
+## L19 — Site Reliability Engineering
+
+- **C01 — SRE Origins & Philosophy**
+  - T01 The Google SRE Book in 90 Minutes
+  - T02 Embracing Risk
+  - T03 Eliminating Toil
+- **C02 — Reliability Math**
+  - T01 Availability (the Nines)
+  - T02 Failure Modes & MTTR/MTBF
+  - T03 Composing SLOs Across Services
+- **C03 — On-Call**
+  - T01 Designing On-Call Rotations
+  - T02 PagerDuty / Opsgenie Patterns
+  - T03 Runbooks
+  - T04 Healthy On-Call Practices
+- **C04 — Incident Management**
+  - T01 Incident Commander Role
+  - T02 Severity Levels & Escalation
+  - T03 Communication During Incidents
+  - T04 ChatOps (Slack, Teams)
+- **C05 — Postmortems**
+  - T01 Blameless Postmortem Template
+  - T02 Root Cause vs Contributing Factors
+  - T03 Action Items That Stick
+- **C06 — Capacity Planning**
+  - T01 Forecasting Demand
+  - T02 Load Testing in Anger
+  - T03 Headroom Management
+- **C07 — Chaos Engineering**
+  - T01 Principles
+  - T02 Tools (Chaos Mesh, Litmus, Gremlin, AWS FIS)
+  - T03 Game Days
+- **C08 — Production Readiness**
+  - T01 PRR Checklist
+  - T02 Launch Reviews
+  - T03 Quarterly Service Reviews
+- **C09 — SRE Leadership at FAANGM**
+  - T01 SRE Org Structures (Embedded vs Central)
+  - T02 Influence Without Authority
+  - T03 The Staff SRE Role
+
+---
+
+## L20 — Security & DevSecOps
+
+- **C01 — Security Mindset**
+  - T01 Threat Modeling (STRIDE, PASTA)
+  - T02 Defense in Depth
+  - T03 Least Privilege
+- **C02 — Shift Left Security**
+  - T01 IDE Security Plugins
+  - T02 Pre-Commit Hooks
+  - T03 Developer Security Training
+- **C03 — Application Security Testing**
+  - T01 SAST (SonarQube, Semgrep, CodeQL)
+  - T02 DAST (OWASP ZAP, Burp)
+  - T03 IAST & RASP
+  - T04 Software Composition Analysis (SCA)
+- **C04 — Container & Image Security**
+  - T01 Image Scanning Pipelines
+  - T02 Image Signing (Cosign / Sigstore)
+  - T03 SBOM (CycloneDX, SPDX)
+  - T04 Admission Controllers
+- **C05 — Secrets Management**
+  - T01 HashiCorp Vault Deep Dive
+  - T02 AWS Secrets Manager, Parameter Store
+  - T03 Sealed Secrets, External Secrets Operator
+  - T04 SOPS
+- **C06 — Supply Chain Security**
+  - T01 SLSA Framework
+  - T02 in-toto Attestations
+  - T03 Dependency Pinning & Reproducible Builds
+  - T04 Lessons from SolarWinds, Codecov, xz Utils
+- **C07 — Cloud Security Posture**
+  - T01 CSPM Tools (Wiz, Lacework, Prisma)
+  - T02 IaC Scanning (Checkov, tfsec)
+  - T03 CIEM (Identity Posture)
+- **C08 — Zero Trust**
+  - T01 BeyondCorp Model
+  - T02 Service-to-Service Identity (SPIFFE/SPIRE)
+  - T03 mTLS Everywhere
+- **C09 — Compliance**
+  - T01 SOC 2
+  - T02 ISO 27001
+  - T03 PCI DSS
+  - T04 HIPAA, GDPR, FedRAMP
+
+---
+
+## L21 — Databases & Data Management for DevOps
+
+- **C01 — Database Categories**
+  - T01 OLTP vs OLAP
+  - T02 Row vs Column Storage
+  - T03 SQL vs NoSQL vs NewSQL
+- **C02 — PostgreSQL for SREs**
+  - T01 MVCC, Vacuum, Autovacuum
+  - T02 Replication (Streaming, Logical)
+  - T03 Connection Pooling (PgBouncer)
+  - T04 Backup (pg_dump, pg_basebackup, WAL-G)
+  - T05 Performance Tuning
+- **C03 — MySQL for SREs**
+  - T01 InnoDB Internals
+  - T02 Replication (Async, Semi-Sync, Group)
+  - T03 ProxySQL
+  - T04 Backup (mysqldump, Percona XtraBackup)
+- **C04 — NoSQL Operations**
+  - T01 DynamoDB Operations
+  - T02 MongoDB (Replica Sets, Sharding)
+  - T03 Cassandra (Tunable Consistency)
+  - T04 Redis (Sentinel, Cluster)
+- **C05 — Database Migrations**
+  - T01 Schema Migration Tools (Flyway, Liquibase, Atlas)
+  - T02 Online Schema Changes (gh-ost, pt-online-schema-change)
+  - T03 Zero-Downtime Migration Patterns
+- **C06 — Backups & DR**
+  - T01 RPO & RTO for Databases
+  - T02 Point-in-Time Recovery
+  - T03 Cross-Region Replication
+  - T04 Restoring Without Crying
+- **C07 — Database Observability**
+  - T01 Slow Query Logs
+  - T02 EXPLAIN ANALYZE Mastery
+  - T03 pg_stat_statements, performance_schema
+- **C08 — Data Pipelines & ETL**
+  - T01 Airflow, Dagster, Prefect
+  - T02 dbt for Analytics Engineering
+  - T03 CDC (Debezium)
+
+---
+
+## L22 — Message Queues & Event Streaming
+
+- **C01 — Messaging Fundamentals**
+  - T01 Queues vs Topics vs Streams
+  - T02 At-Most-Once, At-Least-Once, Exactly-Once Delivery
+  - T03 Ordering Guarantees
+- **C02 — Kafka Deep Dive**
+  - T01 Architecture (Broker, ZooKeeper / KRaft)
+  - T02 Topics, Partitions, Replicas
+  - T03 Producers & Idempotence
+  - T04 Consumers & Consumer Groups
+  - T05 Kafka Connect & Mirror Maker
+  - T06 Schema Registry
+  - T07 Operating Kafka in Production
+- **C03 — RabbitMQ**
+  - T01 Exchanges, Queues, Bindings
+  - T02 Quorum Queues, Streams
+  - T03 Clustering
+- **C04 — Pulsar**
+  - T01 Architecture (Brokers, BookKeeper)
+  - T02 Multi-Tenancy
+- **C05 — NATS & JetStream**
+  - T01 When NATS Beats Kafka
+- **C06 — Cloud-Native Messaging**
+  - T01 AWS SQS, SNS, Kinesis, MSK
+  - T02 GCP Pub/Sub
+  - T03 Azure Service Bus, Event Hubs
+- **C07 — Event-Driven Architecture**
+  - T01 Event Sourcing
+  - T02 CQRS
+  - T03 Saga Pattern
+  - T04 Outbox Pattern
+
+---
+
+## L23 — Caching & CDN
+
+- **C01 — Caching Theory**
+  - T01 Cache Hierarchies
+  - T02 Cache Coherence & Invalidation
+  - T03 LRU, LFU, ARC
+  - T04 Read-Through, Write-Through, Write-Back
+- **C02 — Redis**
+  - T01 Data Types Deep Dive
+  - T02 Persistence (RDB, AOF)
+  - T03 Replication, Sentinel, Cluster
+  - T04 Lua Scripting
+  - T05 Redis Modules (Bloom, JSON, Search)
+- **C03 — Memcached**
+  - T01 Simplicity vs Redis
+- **C04 — Application-Level Caching**
+  - T01 In-Process vs Distributed
+  - T02 Caffeine, Guava, Ristretto
+- **C05 — CDN Strategy**
+  - T01 CloudFront, Cloudflare, Fastly, Akamai
+  - T02 Edge Computing (CF Workers, Lambda@Edge)
+  - T03 Cache Keys & Vary Headers
+  - T04 Image Optimization at Edge
+- **C06 — Cache Failure Modes**
+  - T01 Thundering Herd
+  - T02 Cache Stampede
+  - T03 Cache Penetration
+  - T04 Hot Keys
+
+---
+
+## L24 — Production Networking
+
+- **C01 — Load Balancing Algorithms**
+  - T01 Round Robin, Least Connections, Weighted, Consistent Hashing
+  - T02 Health Checks
+  - T03 Sticky Sessions
+- **C02 — Reverse Proxies**
+  - T01 Nginx (Configs, Modules)
+  - T02 HAProxy
+  - T03 Envoy
+  - T04 Traefik
+- **C03 — API Gateway**
+  - T01 Kong, Tyk, AWS API Gateway
+  - T02 Auth, Rate Limiting, Quotas
+  - T03 Gateway API (Kubernetes)
+- **C04 — Service Discovery**
+  - T01 DNS-Based, Client-Side, Server-Side
+  - T02 Consul, Eureka
+- **C05 — BGP, Anycast, ECMP**
+  - T01 BGP at the Edge
+  - T02 Anycast in Practice (Cloudflare, AWS Global Accelerator)
+  - T03 ECMP & Maglev (Google's L4 LB)
+- **C06 — TLS Termination Patterns**
+  - T01 Edge Termination
+  - T02 Re-Encryption to Backend
+  - T03 SNI Routing
+- **C07 — DDoS Protection**
+  - T01 Volumetric Attacks
+  - T02 L7 Attacks
+  - T03 AWS Shield, Cloudflare DDoS Protection
+
+---
+
+## L25 — Chaos Engineering & Resilience Testing
+
+- **C01 — Chaos Engineering Principles**
+  - T01 Hypothesis-Driven Experiments
+  - T02 Steady State, Blast Radius
+  - T03 Maturity Levels
+- **C02 — Tools**
+  - T01 Chaos Monkey (Netflix Origin)
+  - T02 Chaos Mesh
+  - T03 Litmus
+  - T04 Gremlin
+  - T05 AWS Fault Injection Simulator (FIS)
+- **C03 — Common Experiments**
+  - T01 Network Latency & Loss
+  - T02 CPU / Memory Exhaustion
+  - T03 Disk I/O Saturation
+  - T04 Pod / Node Kills
+  - T05 Region Failover
+- **C04 — Game Days**
+  - T01 Planning a Game Day
+  - T02 Running the Exercise
+  - T03 Capturing Findings
+- **C05 — Resilience Patterns**
+  - T01 Circuit Breakers
+  - T02 Bulkheads
+  - T03 Retries with Backoff & Jitter
+  - T04 Timeouts (Done Right)
+  - T05 Idempotency Keys
+
+---
+
+## L26 — FinOps & Cloud Cost Optimization
+
+- **C01 — FinOps Principles**
+  - T01 The FinOps Foundation Framework
+  - T02 Inform, Optimize, Operate Phases
+- **C02 — Cost Visibility**
+  - T01 Cost Allocation Tags
+  - T02 Showback vs Chargeback
+  - T03 Tools (CUR + Athena, CUDOS, Cloudability, Vantage)
+- **C03 — Compute Optimization**
+  - T01 Right-Sizing
+  - T02 Reserved Instances & Savings Plans
+  - T03 Spot Instances (and Karpenter Strategy)
+  - T04 Graviton & ARM Migration
+- **C04 — Storage Optimization**
+  - T01 S3 Storage Class Analysis
+  - T02 Intelligent Tiering
+  - T03 Snapshot Cleanup
+- **C05 — Networking Cost Traps**
+  - T01 Cross-AZ Traffic
+  - T02 NAT Gateway Costs
+  - T03 Data Egress
+- **C06 — Kubernetes Cost Management**
+  - T01 Kubecost / OpenCost
+  - T02 Pod Right-Sizing
+  - T03 Cluster Bin-Packing
+- **C07 — Building a FinOps Practice**
+  - T01 Anomaly Detection
+  - T02 Forecasting & Budgets
+  - T03 Engineering Incentives
+
+---
+
+## L27 — Disaster Recovery, HA & Multi-Region
+
+- **C01 — DR Fundamentals**
+  - T01 RTO, RPO, MTD
+  - T02 DR Strategies (Backup/Restore, Pilot Light, Warm Standby, Active/Active)
+- **C02 — High Availability Patterns**
+  - T01 Single AZ vs Multi-AZ
+  - T02 Multi-Region Architecture
+  - T03 Active/Active vs Active/Passive
+  - T04 Cells & Bulkheads (Amazon's Approach)
+- **C03 — Data Replication**
+  - T01 Synchronous vs Asynchronous
+  - T02 Cross-Region Replication
+  - T03 Conflict Resolution
+- **C04 — Failover Mechanics**
+  - T01 DNS-Based Failover
+  - T02 Health Checks
+  - T03 Failover Automation
+- **C05 — Backups That Actually Work**
+  - T01 3-2-1 Backup Rule
+  - T02 Testing Restores (Mandatory)
+  - T03 Immutable Backups (Ransomware Defense)
+- **C06 — Region Evacuation**
+  - T01 Pre-Drained Regions
+  - T02 Traffic Steering
+
+---
+
+## L28 — System Design for DevOps & Platform Engineers
+
+- **C01 — System Design Framework**
+  - T01 Functional vs Non-Functional Requirements
+  - T02 Capacity Estimation Math
+  - T03 The 4 Boxes (Client, App, Data, Infra)
+- **C02 — Scalability Patterns**
+  - T01 Horizontal vs Vertical
+  - T02 Sharding & Partitioning
+  - T03 Replication Patterns
+  - T04 CAP & PACELC
+- **C03 — Reliability Patterns**
+  - T01 Idempotency
+  - T02 Backpressure
+  - T03 Graceful Degradation
+- **C04 — Real-World System Designs**
+  - T01 Design a CI/CD Platform
+  - T02 Design a Multi-Region Kubernetes Platform
+  - T03 Design a Metrics / Logging Pipeline at Scale
+  - T04 Design a Secrets Management Platform
+  - T05 Design a Global Load Balancer
+  - T06 Design Netflix's Deployment Platform
+  - T07 Design an Internal Developer Platform
+- **C05 — Platform Engineering**
+  - T01 What an IDP Actually Is
+  - T02 Golden Paths
+  - T03 Backstage for Service Catalog
+  - T04 Crossplane & Compositions
+- **C06 — Tradeoff Discussions**
+  - T01 Build vs Buy vs Open Source
+  - T02 Centralized vs Federated Platforms
+  - T03 Tool Sprawl Management
+
+---
+
+## L29 — FAANGM Interview Mastery
+
+- **C01 — The FAANGM Interview Process**
+  - T01 Recruiter Screen
+  - T02 Tech Phone Screen
+  - T03 Onsite Loop (Coding, System Design, Behavioral)
+  - T04 Bar Raiser / Hiring Committee
+  - T05 Levels at Each Company (L5/L6/L7, IC5/IC6, etc.)
+- **C02 — Coding for DevOps Roles**
+  - T01 Yes, You Still Need DSA
+  - T02 Focus Areas (Strings, Trees, Graphs, BFS/DFS, Heaps)
+  - T03 Concurrency Problems
+  - T04 Systems Coding (Reverse a Linked List vs Build a Rate Limiter)
+- **C03 — System Design for SRE/DevOps**
+  - T01 The 35-Minute Framework
+  - T02 Drive the Discussion
+  - T03 Numbers You Must Know (Latency Numbers Every Engineer Should Know)
+  - T04 Common Patterns at Each Level
+- **C04 — Behavioral / Leadership Interviews**
+  - T01 STAR Format
+  - T02 Amazon Leadership Principles (Deep Dive)
+  - T03 Google's Googleyness & Leadership
+  - T04 Meta's Pillars
+  - T05 Common Themes (Ambiguity, Conflict, Influence)
+  - T06 Crafting a "Career Story Bank"
+- **C05 — Company-Specific Prep**
+  - T01 Amazon (LP-Heavy, Frugality, Ownership)
+  - T02 Google (Googleyness, GCA, Domain)
+  - T03 Meta (Move Fast, Impact)
+  - T04 Microsoft (Growth Mindset)
+  - T05 Apple (Secretive, Hardware-Software)
+  - T06 Netflix (Keeper Test, Freedom & Responsibility)
+- **C06 — Negotiation**
+  - T01 Compensation Components (Base, Bonus, RSU, Sign-On, Refresher)
+  - T02 Level Negotiation
+  - T03 Competing Offers
+  - T04 levels.fyi & TeamBlind Realism
+- **C07 — Mock Interviews**
+  - T01 Where to Find Them
+  - T02 How to Self-Score
+- **C08 — Resume & LinkedIn**
+  - T01 Impact-Driven Bullets
+  - T02 ATS Optimization
+  - T03 Recruiter Outreach
+
+---
+
+## L30 — Capstone Projects & Portfolio
+
+- **C01 — Project 1: End-to-End CI/CD Platform**
+  - T01 Architecture
+  - T02 IaC for Underlying Infra
+  - T03 Jenkins/GitHub Actions + ArgoCD
+  - T04 Observability Stack
+  - T05 Security Gates
+- **C02 — Project 2: Multi-Region Kubernetes Platform**
+  - T01 Cluster Topology
+  - T02 Federation / Multi-Cluster Service Mesh
+  - T03 Cross-Region Failover
+- **C03 — Project 3: Production-Grade Observability Stack**
+  - T01 Prometheus + Thanos
+  - T02 Loki + Grafana
+  - T03 OTel Collector Fleet
+- **C04 — Project 4: Internal Developer Platform (Backstage)**
+  - T01 Service Catalog
+  - T02 Golden Path Templates
+  - T03 Self-Service Provisioning
+- **C05 — Project 5: Cost-Optimized Spot-Heavy Workload Platform**
+  - T01 Karpenter + Spot
+  - T02 Graceful Spot Interruption Handling
+  - T03 Cost Dashboards
+- **C06 — Portfolio Presentation**
+  - T01 Public Repos & READMEs
+  - T02 Blog Posts as Proof of Depth
+  - T03 Conference Talks / Lightning Talks
+  - T04 Open Source Contributions That Matter
+
+---
+
+## Appendices (Coming Soon)
+
+- A01 — Latency Numbers Every Engineer Should Know
+- A02 — Real Incident Library (with Postmortem Links)
+- A03 — Cheat Sheets (Linux, K8s, AWS, Terraform, Prometheus)
+- A04 — Recommended Reading List (Annotated)
+- A05 — Conferences & Communities Worth Your Time
