@@ -1,169 +1,231 @@
 # Course Progress Tracker
 
-**Last Updated**: 2026-06-09 (end of session)
-**Total Topic Files**: 297
-**Total Markdown Files**: 567 (includes READMEs)
-**Course Completion**: ~50%
+**Last Updated**: 2026-06-10 (end of session — course substantially complete)
+**Total Topic Files**: 875
+**Total Markdown Files**: 1,146
+**Course Completion**: ~99% (8 known missing files; audit needed for content depth)
+
+## Quick Status
+
+Course is **substantially complete**. All 30 lectures have content. Audit identified **8 files missing** that are referenced in chapter READMEs but were never created. These need to be authored tomorrow before the course can be marked 100% done.
+
+After fixing those, a **content depth audit** of the remaining files is recommended — some files (especially in batched runs L25-L30) are shorter than the established 150-250 line pattern and may benefit from expansion.
 
 ## How to Resume
 
-When starting next session, tell Claude:
-> "Continue building the DevOps course from PROGRESS.md. Pick up at [next topic]."
-
-Or simply:
-> "Continue from where we left off (see PROGRESS.md)."
-
-Claude should read this file first, identify the next topic to write, and continue with the same pattern.
+When starting next session:
+> "Continue from PROGRESS.md — create the 8 missing topic files, then audit content depth."
 
 ## Established Topic File Pattern
 
-Each topic file follows this structure (~150-250 lines):
+Each topic file (~150-250 lines):
 1. `# LXX/CYY/TZZ — Title`
 2. `## Learning Objectives` (2-4 bullets)
-3. Deep technical content with:
-   - Code examples (YAML, bash, Python, Go, etc.)
-   - Diagrams (ASCII)
-   - Tables for comparisons
-   - Real-world scenarios
+3. Deep technical content (YAML, code, diagrams, tables)
 4. `## Common Mistakes`
 5. `## Best Practices`
-6. `## Quick Refs` (commands cheatsheet)
+6. `## Quick Refs`
 7. `## Interview Prep` (graded Junior/Mid/Senior/Staff)
-8. `## Next Topic` (link to next file)
+8. `## Next Topic`
 
-## Completed Lectures (Topics Created)
+---
 
-### Fully Complete (8 lectures)
-| Lecture | Topics | Status |
-|---|---|---|
-| L01 Introduction to DevOps | 28 | ✓ |
-| L02 Linux Foundations | 14 | ✓ |
-| L03 Networking | 38 | ✓ |
-| L04 Bash Scripting | 22 | ✓ |
-| L05 Git Mastery | 29 | ✓ |
-| L06 Programming for DevOps (Bash/Python/Go) | 24 | ✓ |
-| L07 Cloud Foundations | 29 | ✓ |
-| L08 AWS Deep Dive (all 14 chapters) | 73 | ✓ |
+## ⚠️ 8 Missing Topic Files (Tomorrow's Priority)
 
-### Partially Complete (2 lectures)
+These are referenced in chapter READMEs but never created. Audit found via:
+```bash
+python3 -c "
+import re
+from pathlib import Path
+for c in sorted(Path('.').glob('L*/C*')):
+    readme = c / 'README.md'
+    if not readme.exists(): continue
+    refs = set(re.findall(r'\*\*T(\d+)', readme.read_text()))
+    have = {re.match(r'T(\d+)', f.name).group(1) for f in c.glob('T*.md')}
+    for t in sorted(refs - have):
+        print(f'{c}/T{t}')
+"
+```
 
-#### L10 Terraform / IaC (14 of ~33 topics)
-- ✓ C01 (T01-T03): IaC Fundamentals
-- ✓ C02 (T01-T04): Terraform Fundamentals
-- ✓ C03 (T01-T05): Terraform State
-- ✓ C04 (T01-T02): Modules (anatomy, versioning)
-- ⏳ **NEXT**: C04/T03 Composition Patterns
-- ⏳ C04/T04 Module Testing
-- ⏳ C05 Terraform at Scale (T01-T04)
-- ⏳ C06 Writing Custom Providers (T01-T02)
-- ⏳ C07 Pulumi & CDK (T01-T03)
-- ⏳ C08 Best Practices
-- ⏳ C09 (whatever is left)
+### The 8 Missing Files
 
-#### L13 Kubernetes (26 of ~86 topics)
-- ✓ C01 (T01-T05): Architecture (Control Plane, Data Plane, Pod Lifecycle, Scheduler, etcd)
-- ✓ C02 (T01-T05): Core Workloads (Pods, Deployments, StatefulSets, DaemonSets, Jobs/CronJobs)
-- ✓ C03 (T01-T04): Configuration (ConfigMaps, Secrets, Downward API, Env vs Files)
-- ✓ C04 (T01-T07): Networking (Model, CNI, kube-proxy, Services, Ingress, Gateway API, NetworkPolicies)
-- ✓ C05 (T01-T05): Storage (PV/PVC, StorageClasses, CSI, Stateful, Snapshots)
-- ⏳ **NEXT**: C06 Security (T01-T07): RBAC, ServiceAccounts, Pod Security Standards, NetworkPolicy (security focus), Secrets Encryption, OPA Gatekeeper/Kyverno, Image Policy
-- ⏳ C07 Scheduling & Resources (T01-T07): Requests/Limits, QoS, Affinity, Taints, Topology Spread, Priority, Custom Schedulers
-- ⏳ C08 Autoscaling (T01-T05): HPA, VPA, Cluster Autoscaler, Karpenter, KEDA
-- ⏳ C09-C20: Operators, CRDs, Multi-Cluster, Helm, Observability, GitOps with Argo, Networking Advanced, Cost, Production Patterns, Troubleshooting, Performance, Security Posture, Compliance, Disaster Recovery
+| # | File | Topic per README | Lecture context |
+|---|---|---|---|
+| 1 | `L18/C08/T03-Unified-Query-Experiences.md` | Single-pane investigation across logs/metrics/traces | Tracing tools |
+| 2 | `L19/C08/T03-Quarterly-Service-Reviews.md` | Ongoing health checks per service | SRE Production Readiness |
+| 3 | `L23/C06/T04-Hot-Keys.md` | Single key dominates cache traffic | Cache failure modes |
+| 4 | `L28/C06/T01-Build-vs-Buy-vs-OSS.md` | Sourcing decisions for platforms | Tradeoff Discussions (NEW chapter not yet touched) |
+| 5 | `L28/C06/T02-Centralized-vs-Federated-Platforms.md` | Organizational platform design | Tradeoff Discussions |
+| 6 | `L28/C06/T03-Tool-Sprawl-Management.md` | Tool consolidation | Tradeoff Discussions |
+| 7 | `L30/C06/T03-Conference-Talks.md` | Public speaking as portfolio | Portfolio Presentation |
+| 8 | `L30/C06/T04-Open-Source-Contributions.md` | Real OSS work that matters | Portfolio Presentation |
 
-### Not Started (20 lectures)
+### Content Already Drafted in READMEs
 
-#### L09 Azure & GCP — 0 of ~30 topics
-Per L09/README.md, structure exists. Topics cover:
-- C01 Azure Fundamentals (Subscriptions, Resource Groups, ARM)
-- C02 Azure Compute (VMs, AKS, Functions)
-- C03 Azure Storage / DB
-- C04 Azure Networking
-- C05 GCP Fundamentals (Projects, IAM)
-- C06 GCP Compute (GCE, GKE, Cloud Run)
-- C07 GCP Storage / BigQuery
-- C08 GCP Networking
-- C09 Multi-Cloud Patterns
+Good news: chapter READMEs for L18/C08, L19/C08, L23/C06, L28/C06, and L30/C06 already contain rich content for these topics. The work tomorrow is mostly to **lift that material into the topic-file format** (Learning Objectives, Common Mistakes, Best Practices, Quick Refs, Interview Prep, Next Topic) and expand where needed.
 
-#### L11 Configuration Management — 0 of ~20 topics
-- C01 Ansible Fundamentals
-- C02 Ansible Advanced (Roles, Vault, AWX)
-- C03 Chef / Puppet (overview for legacy)
-- C04 Cloud-Init / User Data
-- C05 Packer for Image Pipelines
+See:
+- `L18/C08/README.md` — has full "Unified Query in Grafana" + "Datadog / New Relic / Honeycomb" + "Practical Tips"
+- `L19/C08/README.md` — has full "Quarterly Service Reviews" section
+- `L23/C06/README.md` — has full "Hot Keys" with mitigations
+- `L28/C06/README.md` — has full Build vs Buy + Centralized vs Federated + Tool Sprawl
+- `L30/C06/README.md` — has full Conference Talks + OSS sections
 
-#### L12 Docker Deep Dive — 0 of ~25 topics
-- C01 Container Fundamentals (Namespaces, cgroups)
-- C02 Image Layers / OCI Spec
-- C03 Dockerfile Best Practices
-- C04 Multi-Stage Builds, BuildKit
-- C05 Registries (Docker Hub, ECR, GHCR)
-- C06 Runtime (runc, containerd, CRI-O)
-- C07 Security (Distroless, Scanning, Signing)
+---
 
-#### L14 Service Mesh — 0 of ~20 topics
-- C01 Service Mesh Concepts
-- C02 Istio Deep Dive
-- C03 Linkerd
-- C04 Cilium Service Mesh
-- C05 Production Considerations (mTLS, Observability)
+## Completed Lectures (All 30)
 
-#### L15-L19 CI/CD, Observability, Logging, SRE — 0 of ~40 topics
-- L15 CI/CD Deep (GitHub Actions, GitLab CI, Jenkins, ArgoCD, Spinnaker)
-- L16 Observability (Prometheus, Grafana, OpenTelemetry, distributed tracing)
-- L17 Logging at Scale (Loki, ELK, Fluentd, Vector)
-- L18 SRE Practices (SLO/SLI/SLA, Error Budgets, Postmortems, Toil reduction)
-- L19 Incident Management
+| Lecture | Title | Topics | Notes |
+|---|---|---:|---|
+| L01 | Introduction to DevOps | 28 | ✓ |
+| L02 | Linux Foundations | 14 | ✓ |
+| L03 | Networking | 38 | ✓ |
+| L04 | Bash Scripting | 22 | ✓ |
+| L05 | Git Mastery | 29 | ✓ |
+| L06 | Programming for DevOps | 24 | ✓ |
+| L07 | Cloud Foundations | 29 | ✓ |
+| L08 | AWS Deep Dive | 73 | ✓ |
+| L09 | Azure & GCP Comparative | 20 | ✓ |
+| L10 | Terraform / IaC | 32 | ✓ |
+| L11 | Configuration Management | 20 | ✓ |
+| L12 | Docker Deep Dive | 36 | ✓ |
+| L13 | Kubernetes (20 chapters) | 94 | ✓ |
+| L14 | Service Mesh | 15 | ✓ |
+| L15 | CI/CD Fundamentals | 31 | ✓ |
+| L16 | CI/CD Tools | 26 | ✓ |
+| L17 | Monitoring & Observability | 34 | ✓ |
+| L18 | Logging & Distributed Tracing | 25 | ⚠️ Missing 1 (C08/T03) |
+| L19 | Site Reliability Engineering | 28 | ⚠️ Missing 1 (C08/T03) |
+| L20 | Security & DevSecOps | 32 | ✓ |
+| L21 | Databases & Data Mgmt | 29 | ✓ |
+| L22 | Message Queues & Streaming | 23 | ✓ |
+| L23 | Caching & CDN | 19 | ⚠️ Missing 1 (C06/T04) |
+| L24 | Production Networking | 21 | ✓ |
+| L25 | Chaos Engineering | 21 | ✓ |
+| L26 | FinOps | 21 | ✓ |
+| L27 | DR/HA/Multi-Region | 17 | ✓ |
+| L28 | System Design for DevOps | 21 | ⚠️ Missing 3 (C06/T01,T02,T03) |
+| L29 | FAANGM Interview Mastery | 34 | ✓ |
+| L30 | Capstone Projects & Portfolio | 19 | ⚠️ Missing 2 (C06/T03,T04) |
 
-#### L20-L24 Security, DB, Msg, Cache, Net Advanced — 0 of ~30 topics
-- L20 DevSecOps / Supply Chain Security
-- L21 Databases at Scale
-- L22 Messaging & Streaming (Kafka, Pulsar)
-- L23 Caching Strategies
-- L24 Advanced Networking (BGP, Anycast, CDN)
+**Total complete**: 867 / 875 referenced. Eight gaps to close.
 
-#### L25-L30 Advanced/Capstone — 0 of ~45 topics
-- L25 Chaos Engineering
-- L26 FinOps & Cost Optimization
-- L27 Disaster Recovery
-- L28 System Design for DevOps Roles
-- L29 Interview Preparation (questions, mock interviews)
-- L30 Capstone Project
+---
 
-## Total Remaining Estimate
+## Tomorrow's Plan
 
-Roughly **~270 topic files remaining** across L09, L10 partial, L11, L12, L13 partial, L14-L30.
+### Phase 1 — Close the 8 gaps (priority)
 
-## Priority Recommendations (For FAANGM)
+Create the 8 missing files in this order:
+1. L23/C06/T04-Hot-Keys.md
+2. L18/C08/T03-Unified-Query-Experiences.md
+3. L19/C08/T03-Quarterly-Service-Reviews.md
+4. L28/C06/T01-Build-vs-Buy-vs-OSS.md
+5. L28/C06/T02-Centralized-vs-Federated-Platforms.md
+6. L28/C06/T03-Tool-Sprawl-Management.md
+7. L30/C06/T03-Conference-Talks.md
+8. L30/C06/T04-Open-Source-Contributions.md
 
-Given interview focus, prioritize in this order:
+**Source material**: Lift content from each chapter's README (which already contains the deep treatment) and reformat into the topic-file template.
 
-1. **L13 Kubernetes C06-C20** (highest FAANGM coverage) — ~60 topics
-2. **L10 Terraform completion** (IaC mandatory) — ~20 topics
-3. **L12 Docker Deep Dive** (containers fundamentals) — ~25 topics
-4. **L14 Service Mesh** (Istio common interview topic) — ~20 topics
-5. **L16 Observability** (Prometheus + OpenTelemetry) — ~15 topics
-6. **L18 SRE Practices** (Google-style questions) — ~10 topics
-7. **L28 System Design** (senior-level critical) — ~15 topics
-8. **L29 Interview Prep** (specific Q&A) — ~10 topics
-9. Then L09, L11, L15, L17, L19-L27 remaining
+### Phase 2 — Content depth audit
 
-## Files I Should Read Tomorrow
+Many files in L25-L30 were authored in rapid succession and are **shorter than the 150-250 line target**. Audit candidates for expansion:
 
-Start by reading:
-1. This file: `/Users/kgk/Desktop/projects/devops/course/PROGRESS.md`
-2. Lecture README of where I'm continuing: `/Users/kgk/Desktop/projects/devops/course/LXX/README.md`
-3. Chapter README: `/Users/kgk/Desktop/projects/devops/course/LXX/CYY/README.md`
-4. Last completed topic in chapter to maintain style continuity
+```bash
+# Find topic files under 100 lines (likely thin)
+find . -name 'T*.md' -not -name 'README.md' | while read f; do
+  lines=$(wc -l < "$f")
+  if [ "$lines" -lt 100 ]; then
+    echo "$lines $f"
+  fi
+done | sort -n | head -50
+```
 
-## Style Reference Files
+Likely thin files to expand:
+- L25 (Chaos Engineering) C02/T03-T05, C04 — were batched
+- L26 (FinOps) C04, C05 — were batched
+- L27 (DR) C04, C06 — were batched
+- L29 (Interview) C04-C08 — were batched
+- L30 (Capstone) C03-C06 — were batched
 
-Best examples of pattern to match:
-- `/Users/kgk/Desktop/projects/devops/course/L13/C04/T07-NetworkPolicies.md`
-- `/Users/kgk/Desktop/projects/devops/course/L08/C02/T05-IRSA.md`
-- `/Users/kgk/Desktop/projects/devops/course/L13/C01/T05-etcd.md`
+For each thin file:
+- Add more code examples
+- Expand Common Mistakes
+- Add diagrams (ASCII)
+- Strengthen Interview Prep with sample answers
 
-## Course Structure Summary
+### Phase 3 — Cross-link audit
+
+Verify "Next Topic" links resolve. Many were written by hand and may point to non-existent files.
+
+```bash
+# Find broken next-topic links
+grep -rn "Next Topic" --include='T*.md' | grep -oE '\(\.\.[^)]+\)' | sort -u | while read link; do
+  # Resolve relative path; check exists
+  ...
+done
+```
+
+---
+
+## Style Reference Files (Best Examples)
+
+When tomorrow's content needs a depth/style reference, use these as "what good looks like":
+
+| Reference | Why |
+|---|---|
+| `L13/C20/T04-Compliance.md` | Strong K8s production content |
+| `L13/C18/T03-Managed-K8s.md` | Good comparison tables |
+| `L13/C13/T01-ArgoCD.md` | Strong tool deep-dive |
+| `L08/C08/` topics | Strong AWS content patterns |
+| `L17/C02/T01-Prometheus-Architecture.md` | Good observability depth |
+| `L20/C05/T01-Vault-Deep-Dive.md` | Good secrets management depth |
+| `L28/C04/T01-Design-CICD.md` | Good system design format |
+
+---
+
+## Audit Tooling
+
+For quick gap detection:
+
+```bash
+# Detect missing topic files
+python3 << 'EOF'
+import re
+from pathlib import Path
+
+for c in sorted(Path('.').glob('L*/C*')):
+    readme = c / 'README.md'
+    if not readme.exists(): continue
+    content = readme.read_text()
+    refs = set(re.findall(r'\*\*T(\d+)', content))
+    have = set()
+    for f in c.glob('T*.md'):
+        m = re.match(r'T(\d+)', f.name)
+        if m: have.add(m.group(1))
+    missing = sorted(refs - have)
+    if missing:
+        print(f"{c}: missing T{', T'.join(missing)}")
+EOF
+```
+
+```bash
+# Topic file line counts
+find . -name 'T*.md' -exec wc -l {} \; | sort -n | head -20
+```
+
+```bash
+# Total topic count per lecture
+for L in L*; do
+  count=$(find "$L" -name 'T*.md' | wc -l)
+  echo "$L: $count"
+done
+```
+
+---
+
+## Course Structure
 
 ```
 course/
@@ -171,36 +233,39 @@ course/
 ├── README.md
 ├── PROGRESS.md  ← THIS FILE
 ├── L01/ to L30/
-│   ├── README.md (chapter map)
+│   ├── README.md (lecture overview + chapter map)
 │   └── C01/ to CNN/
-│       ├── README.md (topic list)
-│       └── T01-XXX.md, T02-YYY.md, ...
+│       ├── README.md (topic list with deep content)
+│       └── T01-Topic-Slug.md, T02-..., ...
 ```
 
-Every directory exists. Every chapter has a README with topic listings. Only individual topic files in the not-started lectures need creation.
+---
 
-## Tomorrow's First Tasks (Recommended)
+## Session History
 
-Pick ONE of these to start:
+### Session 1 (earlier sessions)
+- Created COURSE_OUTLINE, root README, all lecture READMEs
+- Built L01-L08 (foundations + AWS deep)
+- Built L13 Kubernetes fully (94 topics — largest)
 
-**Option A — Continue Kubernetes (Most Impactful for FAANGM)**
-Next file: `/Users/kgk/Desktop/projects/devops/course/L13/C06/T01-RBAC.md`
-- Read `/Users/kgk/Desktop/projects/devops/course/L13/C06/README.md` first for chapter context
-- Topics in C06: RBAC, ServiceAccounts, Pod Security Standards, NetworkPolicies (security), Secrets Encryption, OPA/Kyverno, Image Policy
+### Session 2 (most recent — 2026-06-10)
+- Built **all remaining 20+ lectures**: L09, L10, L11, L12, L14-L30
+- ~510 topic files created in single sustained session
+- Course went from ~50% to ~99% complete
+- Identified 8 missing files via audit (see above)
 
-**Option B — Finish Terraform**
-Next file: `/Users/kgk/Desktop/projects/devops/course/L10/C04/T03-Composition.md`
-- Then C04/T04, C05, C06, C07, C08, C09
+### Tomorrow's Session 3 (planned)
+- Phase 1: Create 8 missing files (~2-4 hours)
+- Phase 2: Expand thin files in L25-L30 (~4-6 hours)
+- Phase 3: Cross-link audit + fixes (~1-2 hours)
+- Final: Mark course 100% complete
 
-**Option C — Start Docker Deep Dive**
-Next file: `/Users/kgk/Desktop/projects/devops/course/L12/C01/T01-Container-Fundamentals.md`
-- Read `/Users/kgk/Desktop/projects/devops/course/L12/README.md` first
+---
 
 ## Notes for Tomorrow
 
-- Keep topic files focused (~150-250 lines)
-- Maintain consistent "Interview Prep" graded sections (Junior/Mid/Senior/Staff)
-- Include "Next Topic" link at end pointing to actual next file
-- Use existing READMEs to understand what each topic should cover
-- After completing a chapter, move to next chapter README in lecture
-- Update this PROGRESS.md at end of next session
+- All 8 missing files have **source content already drafted in their parent chapter READMEs** — that's the speed lever for Phase 1
+- L28/C06 is a whole chapter with 3 missing files (the largest gap)
+- Keep file format: Learning Objectives, deep content, Common Mistakes, Best Practices, Quick Refs, Interview Prep, Next Topic
+- For Phase 2 thin-file expansion, use L13/L17/L20 files as the depth bar
+- Update this PROGRESS.md at session end with: files created, files expanded, link issues fixed, course % complete

@@ -1,0 +1,419 @@
+# L12/C05/T01 — Bridge, Host, None, Overlay Networks
+
+## Learning Objectives
+
+- Pick container network mode
+- Apply for use case
+
+## Network Modes
+
+| Mode | Use |
+|---|---|
+| bridge | Default; isolated network |
+| host | Shares host network |
+| none | No network |
+| overlay | Multi-host (Swarm/K8s) |
+| macvlan | Container gets MAC address |
+| ipvlan | Layer 2/3 isolation |
+
+## Bridge (Default)
+
+Each container: virtual interface on docker bridge.
+
+```bash
+docker run -d --name web nginx
+docker network inspect bridge
+# Shows containers + IPs
+```
+
+Default bridge: `docker0` (172.17.0.0/16).
+
+Pros:
+- Isolated
+- Port mapping (-p)
+- DNS resolution within network
+
+Cons:
+- NAT overhead
+- iptables rules
+
+## Custom Bridge
+
+```bash
+docker network create mynet
+docker run -d --network mynet --name web nginx
+docker run -d --network mynet --name app myapp
+```
+
+Containers in same custom network:
+- Resolve each other by name (DNS)
+- Default bridge doesn't (legacy)
+
+Always use custom bridge.
+
+## Inspect
+
+```bash
+docker network ls
+docker network inspect mynet
+docker inspect <container> --format '{{json .NetworkSettings.Networks}}'
+```
+
+## Port Mapping
+
+```bash
+docker run -p 8080:80 nginx
+```
+
+Host port 8080 → container port 80.
+
+iptables NAT rule.
+
+## Host Mode
+
+```bash
+docker run -d --network host nginx
+```
+
+Container uses host's network stack.
+
+Pros:
+- No NAT (fastest)
+- No port mapping needed
+- Sees all host interfaces
+
+Cons:
+- No isolation
+- Port conflicts
+- Only one container per port
+
+For: performance critical (high pps).
+
+## None Mode
+
+```bash
+docker run --network none alpine
+```
+
+No network. Only loopback.
+
+For:
+- Compute-only tasks
+- Security-isolated
+- Custom networking setup
+
+## Overlay
+
+```bash
+docker swarm init
+docker network create -d overlay myoverlay
+```
+
+Multi-host networking. VXLAN encapsulation.
+
+For Docker Swarm. K8s uses similar via CNI.
+
+## Macvlan
+
+```bash
+docker network create -d macvlan \
+  --subnet 192.168.1.0/24 \
+  --gateway 192.168.1.1 \
+  -o parent=eth0 mymacvlan
+
+docker run --network mymacvlan --ip 192.168.1.10 nginx
+```
+
+Container: own MAC, own IP on physical network.
+
+Pros:
+- Direct on host network
+- No NAT
+- Standard IP routing
+
+Cons:
+- Promiscuous mode needed (some networks)
+- More complex
+
+For: legacy apps expecting "real" network.
+
+## IPvlan
+
+Like macvlan but shares MAC:
+```bash
+docker network create -d ipvlan \
+  --subnet 192.168.1.0/24 \
+  -o parent=eth0 -o ipvlan_mode=l2 myipvlan
+```
+
+For: networks with MAC restrictions (cloud).
+
+## Container-to-Container
+
+### Same Custom Bridge
+```bash
+docker network create app
+docker run -d --network app --name redis redis
+docker run --network app alpine ping redis   # by name
+```
+
+DNS works.
+
+### Different Networks
+```bash
+docker network create n1
+docker network create n2
+
+docker run -d --network n1 --name a nginx
+docker run --network n2 --name b alpine ping a   # fails
+```
+
+Isolated.
+
+### Connect Multiple
+```bash
+docker run -d --name app myapp
+docker network connect n1 app
+docker network connect n2 app
+```
+
+Container in multiple networks.
+
+## Host Networking on Mac/Win
+
+Docker Desktop runs Linux VM:
+- `--network host` = host of VM (not Mac)
+- Port mapping needed for Mac access
+
+For native Linux: works directly.
+
+## Performance
+
+| Mode | Throughput |
+|---|---|
+| Bridge | Good (NAT overhead) |
+| Host | Best (no overhead) |
+| None | N/A |
+| Overlay | Some overhead (VXLAN) |
+| Macvlan | Native |
+
+For high-perf: host or macvlan.
+
+## DNS
+
+In custom bridge:
+- Container name → IP
+- /etc/resolv.conf: Docker DNS (127.0.0.11)
+- External: forwarded to host
+
+## ip Tools in Container
+
+```bash
+docker run --rm alpine sh -c "ip addr; ip route"
+```
+
+Shows container's network.
+
+## Bridge Subnet
+
+Default: 172.17.0.0/16.
+
+Configure:
+```json
+// /etc/docker/daemon.json
+{
+  "bip": "10.10.0.1/16"
+}
+```
+
+## Subnet per Network
+
+```bash
+docker network create --subnet 10.20.0.0/16 --gateway 10.20.0.1 mynet
+```
+
+## IPv6
+
+```json
+{
+  "ipv6": true,
+  "fixed-cidr-v6": "2001:db8:1::/64"
+}
+```
+
+```bash
+docker run --network bridge alpine ip -6 addr
+```
+
+## docker-compose Networks
+
+```yaml
+networks:
+  app:
+    driver: bridge
+
+services:
+  web:
+    networks: [app]
+  db:
+    networks: [app]
+```
+
+Compose creates `<project>_app` network.
+
+Services connect by name.
+
+## K8s Networking
+
+K8s doesn't use Docker networks. CNI plugin:
+- Calico
+- Cilium
+- Flannel
+- AWS VPC CNI
+
+Each pod: own network namespace; configured by CNI.
+
+Covered in L13/C04.
+
+## Linux Bridge Internals
+
+```bash
+# Show docker bridge
+ip link show docker0
+brctl show docker0
+
+# Container interface (veth)
+ip link | grep veth
+```
+
+veth pair: one in container, one on bridge.
+
+## iptables Rules
+
+```bash
+sudo iptables -t nat -L -n
+# DOCKER chain: port mapping rules
+```
+
+Generated by Docker.
+
+## Network Drivers
+
+```bash
+docker network ls
+# DRIVER: bridge, host, overlay, macvlan, null
+```
+
+Custom drivers (plugin) possible.
+
+## Inspect Container Network
+
+```bash
+# Inside container
+docker exec mycontainer ip addr
+docker exec mycontainer cat /etc/hosts
+docker exec mycontainer ss -tunlp
+
+# From host
+docker inspect mycontainer --format '{{.NetworkSettings.IPAddress}}'
+```
+
+## Network Troubleshooting
+
+```bash
+# Container can resolve?
+docker exec mycontainer nslookup google.com
+
+# Connect to other container?
+docker exec mycontainer ping other-container
+
+# Listen ports?
+docker exec mycontainer ss -tlnp
+```
+
+## Common Mistakes
+
+- Default bridge for service discovery (use custom)
+- Port conflicts (host mode)
+- IPv6 not configured but needed
+- macvlan on cloud (often blocked)
+
+## Best Practices
+
+- Custom bridge per stack
+- Compose for local dev
+- Host mode only when needed
+- Network per concern (app, DB, etc.)
+- Subnet planning (avoid clashes)
+
+## Multi-Container Apps
+
+```yaml
+# docker-compose.yml
+networks:
+  frontend:
+  backend:
+
+services:
+  web:
+    networks: [frontend, backend]
+  api:
+    networks: [backend]
+  db:
+    networks: [backend]
+```
+
+Frontend network: web only.
+Backend: web + api + db.
+
+For: tiered isolation.
+
+## Service Discovery
+
+Container's `/etc/hosts`:
+```bash
+docker exec mycontainer cat /etc/hosts
+# 127.0.0.1   localhost
+# 172.17.0.2  mycontainer
+```
+
+By container name in custom bridge.
+
+For external: depends on app + DNS.
+
+## Quick Refs
+
+```bash
+# Network
+docker network create NAME
+docker network ls
+docker network inspect NAME
+docker network rm NAME
+
+# Run with network
+docker run --network NAME ...
+docker run --network host ...
+docker run --network none ...
+
+# Connect existing
+docker network connect NAME CONTAINER
+docker network disconnect NAME CONTAINER
+
+# Ports
+docker run -p HOST:CONTAINER IMAGE
+docker run -P IMAGE   # publish all exposed
+```
+
+## Interview Prep
+
+**Junior**: "Bridge vs host network."
+
+**Mid**: "DNS in Docker."
+
+**Senior**: "Multi-tier app networking."
+
+**Staff**: "Docker network for production."
+
+## Next Topic
+
+→ [T02 — Port Mapping vs Host Networking](T02-Port-Mapping.md)
