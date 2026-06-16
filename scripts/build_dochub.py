@@ -8,7 +8,7 @@ separate CSS/JS asset bundle, producing a self-contained `dochub/` tree that
 opens directly in a browser. No node_modules, no build step beyond
 `python3 scripts/build_dochub.py`.
 
-Reads (READ-ONLY — never modifies), relative to the content/ root:
+Reads (READ-ONLY — never modifies), relative to the repo root:
     README.md, COURSE_OUTLINE.md, LEARNING_PATHS.md, INTERVIEW_PREP.md,
     PROGRESS.md, AUDIT-*.md
     L*/README.md            (lecture overviews)
@@ -71,7 +71,8 @@ except ImportError:
 
 SCRIPT_DIR = Path(__file__).resolve().parent  # scripts/
 REPO_ROOT = SCRIPT_DIR.parent                 # repo root
-ROOT = REPO_ROOT / "content"                  # all course Markdown lives here
+ROOT = REPO_ROOT                              # reference docs live at the repo root
+CONTENT_DIR = REPO_ROOT / "content"           # lecture content (content/L##-slug/…)
 OUT_DIR = REPO_ROOT / "dochub"                # generated static site
 ASSETS_SRC = SCRIPT_DIR / "dochub_assets"
 
@@ -362,7 +363,7 @@ def find_md_files() -> List[Path]:
         p = ROOT / name
         if p.is_file():
             out.append(p)
-    for lec in sorted(ROOT.glob("L[0-9][0-9]")):
+    for lec in sorted(CONTENT_DIR.glob("L[0-9][0-9]-*")):
         if not lec.is_dir():
             continue
         for p in sorted(lec.rglob("*.md")):
@@ -373,7 +374,7 @@ def find_md_files() -> List[Path]:
     return out
 
 
-_LECTURE_DIR_RE = re.compile(r"^L(\d{2})$")
+_LECTURE_DIR_RE = re.compile(r"^L(\d{2})(?:-.*)?$")
 _CHAPTER_DIR_RE = re.compile(r"^C(\d{2})$")
 _TOPIC_FILE_RE = re.compile(r"^T(\d{2})-")
 
@@ -393,7 +394,7 @@ def discover_chapters() -> "Dict[str, Dict[str, Any]]":
         "icon": "📚", "color": "indigo",
     }
     n = 2
-    for lec in sorted(ROOT.glob("L[0-9][0-9]")):
+    for lec in sorted(CONTENT_DIR.glob("L[0-9][0-9]-*")):
         if not lec.is_dir():
             continue
         m = _LECTURE_DIR_RE.match(lec.name)
@@ -415,8 +416,8 @@ def discover_chapters() -> "Dict[str, Dict[str, Any]]":
         icon = LECTURE_ICONS.get(num, _ICON_FALLBACK[num % len(_ICON_FALLBACK)])
         color = TONE_CYCLE[(num - 1) % len(TONE_CYCLE)]
         chapters[slug] = {
-            "slug": slug, "number": n, "nav_label": lec.name,
-            "title": title, "path_label": f"{lec.name}/",
+            "slug": slug, "number": n, "nav_label": f"L{num:02d}",
+            "title": title, "path_label": f"content/{lec.name}/",
             "subtitle": subtitle, "icon": icon, "color": color,
         }
         n += 1
@@ -446,7 +447,10 @@ def classify(rel: str) -> Optional[Dict[str, Any]]:
             "out_rel": f"reference/{slugify(stem)}.html",
         }
 
-    # 2) L##/...
+    # 2) content/L##-slug/...
+    if parts[0] != "content" or len(parts) < 2:
+        return None
+    parts = parts[1:]
     lm = _LECTURE_DIR_RE.match(parts[0])
     if not lm:
         return None
@@ -855,16 +859,59 @@ def theme_toggle_html() -> str:
     )
 
 
+# Curriculum sections — group the 30 lectures into tidy top-nav dropdowns
+# instead of a single 31-item strip. (short label, full label, inclusive range)
+NAV_SECTIONS = [
+    ("Foundations", "Foundations", (1, 6)),
+    ("Cloud", "Cloud & Infrastructure", (7, 11)),
+    ("Containers", "Containers & Orchestration", (12, 14)),
+    ("Delivery", "Delivery & Reliability", (15, 19)),
+    ("Security & Data", "Security, Data & Networking", (20, 24)),
+    ("Advanced", "Advanced Engineering", (25, 28)),
+    ("Interview", "Interview & Career", (29, 30)),
+]
+
+
 def nav_html(up: str, current_chapter: Optional[str]) -> str:
+    by_slug = {c.slug: c for c in CHAPTER_LIST}
     parts: List[str] = []
-    for ch in CHAPTER_LIST:
-        active = " active" if current_chapter == ch.slug else ""
+
+    # Reference — a direct link
+    ref = by_slug.get("reference")
+    if ref:
+        active = " active" if current_chapter == "reference" else ""
         parts.append(
-            f'<a class="nav-link{active}" href="{up}{ch.slug}/index.html" '
-            f'title="{_h_escape(ch.title)}">'
-            f'<span class="name">{_h_escape(ch.nav_label)}</span>'
-            f'<span class="count">{len(ch.docs)}</span>'
-            f'</a>'
+            f'<a class="nav-link{active}" href="{up}reference/index.html">'
+            f'<span class="nl-ic">{ref.icon}</span>'
+            f'<span class="name">Reference</span></a>'
+        )
+
+    # One dropdown per curriculum section
+    for short, full, (lo, hi) in NAV_SECTIONS:
+        lects = [by_slug[f"l{n:02d}"] for n in range(lo, hi + 1) if f"l{n:02d}" in by_slug]
+        if not lects:
+            continue
+        sec_active = " active" if any(current_chapter == c.slug for c in lects) else ""
+        links: List[str] = []
+        for c in lects:
+            la = " active" if current_chapter == c.slug else ""
+            links.append(
+                f'<a class="nav-dd-link{la}" href="{up}{c.slug}/index.html" '
+                f'title="{_h_escape(c.title)}">'
+                f'<span class="ddl-ic">{c.icon}</span>'
+                f'<span class="ddl-num">{_h_escape(c.nav_label)}</span>'
+                f'<span class="ddl-title">{_h_escape(c.title)}</span>'
+                f'<span class="ddl-count">{len(c.docs)}</span>'
+                f'</a>'
+            )
+        parts.append(
+            f'<details class="nav-dd{sec_active}">'
+            f'<summary><span>{_h_escape(short)}</span>'
+            f'<span class="dd-caret">▾</span></summary>'
+            f'<div class="nav-dd-panel">'
+            f'<div class="nav-dd-head">{_h_escape(full)}</div>'
+            f'{"".join(links)}</div>'
+            f'</details>'
         )
     return "".join(parts)
 

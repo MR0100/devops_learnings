@@ -397,3 +397,23 @@
   };
   document.head.appendChild(s);
 })();
+
+// ---------- Top-nav section dropdowns ----------
+(function () {
+  var dds = Array.prototype.slice.call(document.querySelectorAll('.topnav .nav-dd'));
+  if (!dds.length) return;
+  // Accordion: opening one closes the others.
+  dds.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) dds.forEach(function (o) { if (o !== d) o.open = false; });
+    });
+  });
+  // Close on outside click.
+  document.addEventListener('click', function (e) {
+    dds.forEach(function (d) { if (d.open && !d.contains(e.target)) d.open = false; });
+  });
+  // Close on Escape.
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') dds.forEach(function (d) { d.open = false; });
+  });
+})();
